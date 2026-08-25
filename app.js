@@ -6,10 +6,8 @@
 (function () {
     'use strict';
 
-    // Initial Sample Matches (Empty by default as requested)
-    const DEFAULT_MATCHES = [];
-
-    const STORAGE_KEY = 'iraq_live_matches_data';
+    // Storage Key Version 2 (Empty Fresh State)
+    const STORAGE_KEY = 'iraq_live_matches_v2';
     const ADMIN_PASSCODE = '0000';
 
     let matches = [];
@@ -96,6 +94,9 @@
     // -------------------------------------------------------------
     function loadMatches() {
         try {
+            // Force remove old cached data key if present
+            localStorage.removeItem('iraq_live_matches_data');
+
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
                 matches = JSON.parse(stored);
